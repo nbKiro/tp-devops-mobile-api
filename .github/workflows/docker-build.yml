@@ -13,17 +13,17 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
-      
+    
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
-      
+    
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        
-    - name: Build and push Docker image
+    
+    - name: Build and Push Docker image
       uses: docker/build-push-action@v4
       with:
         context: .
@@ -33,3 +33,17 @@ jobs:
           kirobgt/mobile-php-api:${{ github.sha }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+    
+    - name: Note about Android build
+      if: false 
+      run: |
+        echo "=========================================="
+        echo "NOTE: Android APK build not implemented"
+        echo "=========================================="
+        
+        echo "Reason: No Android project in repository"
+        echo "In a complete project, add:"
+        echo "1. Android project files"
+        echo "2. Gradle build step"
+        echo "3. APK publishing"
+        echo "=========================================="
